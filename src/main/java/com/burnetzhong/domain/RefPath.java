@@ -1,16 +1,16 @@
 package com.burnetzhong.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.burnetzhong.domain.refs.GenericRef;
 import com.burnetzhong.domain.refs.RefFormat;
 import com.burnetzhong.domain.refs.RefType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 /**
  * Created by Helmsdown on 7/8/15.
- *
+ * <p>
  * This class extends directly from Path for now. At some future date we will need
- * to make {@link com.burnetzhong.domain.Path} an interface to follow the pattern established by
- * {@link com.burnetzhong.domain.Model}, {@link com.burnetzhong.domain.properties.Object} and {@link com.burnetzhong.domain.parameters.Parameter}
+ * to make {@link Path} an interface to follow the pattern established by
+ * {@link Model}, {@link com.burnetzhong.domain.properties.Object} and {@link com.burnetzhong.domain.parameters.Parameter}
  */
 public class RefPath extends Path {
 

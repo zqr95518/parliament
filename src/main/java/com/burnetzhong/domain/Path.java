@@ -1,5 +1,6 @@
 package com.burnetzhong.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
@@ -13,7 +14,7 @@ import java.util.Map;
 @JsonPropertyOrder({"get", "head", "post", "put", "delete", "options", "patch"})
 public class Path {
 
-    private final Map<String, Object> vendorExtensions = new HashMap<String, Object>();
+    private Map<String, Object> vendorExtensions = new HashMap<String, Object>();
     private Operation get;
     private Operation put;
     private Operation post;
@@ -140,6 +141,7 @@ public class Path {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public List<Operation> getOperations() {
         List<Operation> allOperations = new ArrayList<Operation>();
         if (get != null) {
@@ -168,6 +170,7 @@ public class Path {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public Map<HttpMethod, Operation> getOperationMap() {
         Map<HttpMethod, Operation> result = new HashMap<HttpMethod, Operation>();
 
@@ -212,6 +215,7 @@ public class Path {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public boolean isEmpty() {
         if (get == null && put == null && head == null && post == null && delete == null && patch == null && options == null) {
             return true;
@@ -231,7 +235,6 @@ public class Path {
             vendorExtensions.put(name, value);
         }
     }
-
 
     public int hashCode() {
         final int prime = 31;

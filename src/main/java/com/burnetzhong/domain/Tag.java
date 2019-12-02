@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class Tag {
-    private final Map<String, Object> vendorExtensions = new HashMap<String, Object>();
+    private Map<String, Object> vendorExtensions = new HashMap<>();
     private String name;
     private String description;
     private ExternalDocs externalDocs;
@@ -56,7 +56,7 @@ public class Tag {
         return vendorExtensions;
     }
 
-    @JsonAnySetter
+    @JsonAnySetter(enabled = false)
     public void setVendorExtension(String name, Object value) {
         if (name.startsWith("x-")) {
             vendorExtensions.put(name, value);

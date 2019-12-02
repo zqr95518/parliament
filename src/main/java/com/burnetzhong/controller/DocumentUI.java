@@ -1,21 +1,20 @@
 package com.burnetzhong.controller;
 
-import com.burnetzhong.domain.Swagger;
+import com.alibaba.fastjson.JSON;
+import com.alibaba.fastjson.serializer.PropertyFilter;
+import com.alibaba.fastjson.serializer.SerializerFeature;
 import com.burnetzhong.repo.SwaggerDocRepo;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 
-import java.util.List;
+import java.util.ArrayList;
+import java.util.HashMap;
 
 /**
  * Project: zhcore
  *
- * @Comments
- * @Author Zhong Han
  * @Created Date 2017/4/6
+ * @Updated Date 2019/12/2
  */
 
 @RestController
@@ -25,20 +24,19 @@ public class DocumentUI {
     @Autowired
     private SwaggerDocRepo swaggerDocRepo;
 
-
-    @RequestMapping(path = "/", method = RequestMethod.GET)
-    public List<Swagger> getSwaggers(){
-        List<Swagger> swaggers = (List<Swagger>) swaggerDocRepo.findAll();
-        return swaggers;
+    @GetMapping("")
+    public String getSwaggers() {
+        return JSON.toJSONString(swaggerDocRepo.findAll(), (PropertyFilter) (object, name, value) -> !("definitions".equals(name) || "paths".equals(name)));
     }
 
-    @RequestMapping(path = "/{basePath}", method = RequestMethod.GET)
-    public Swagger getByBasePath(@PathVariable  String basePath){
-        if(!basePath.startsWith("/")){
-            basePath = "/" + basePath;
-        }
-        Swagger swagger = swaggerDocRepo.findByBasePath(basePath);
-        return swagger;
+    @GetMapping("/{id}")
+    public String getByBasePath(@PathVariable String id) {
+        return JSON.toJSONString(swaggerDocRepo.findById(id), (PropertyFilter) (object, name, value) -> !(value == null || value.equals(new HashMap<>()) || value.equals(new ArrayList<>()) || value.equals("") || value.equals("null")), SerializerFeature.DisableCircularReferenceDetect);
     }
 
+    @DeleteMapping("/{id}")
+    public String delete(@PathVariable String id) {
+        swaggerDocRepo.deleteById(id);
+        return "Success";
+    }
 }

@@ -12,7 +12,7 @@ public class Response {
     private Object schema;
     private Map<String, Object> examples;
     private Map<String, Object> headers;
-    private final Map<String, Object> vendorExtensions = new HashMap<String, Object>();
+    private Map<String, Object> vendorExtensions = new HashMap<String, Object>();
 
     public Response schema(Object property) {
         this.setSchema(property);

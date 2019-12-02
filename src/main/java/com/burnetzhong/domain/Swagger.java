@@ -1,19 +1,16 @@
 package com.burnetzhong.domain;
 
+import com.alibaba.fastjson.annotation.JSONField;
 import com.burnetzhong.domain.auth.SecuritySchemeDefinition;
 import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonAnySetter;
 import com.fasterxml.jackson.annotation.JsonIgnore;
-import com.fasterxml.jackson.annotation.JsonInclude;
-import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
 import java.util.*;
 
 @Document(collection = "Swagger")
 public class Swagger {
-    private String id;
-
     protected String swagger = "2.0";
     protected Info info;
     protected String host;
@@ -30,6 +27,7 @@ public class Swagger {
     protected Map<String, Response> responses;
     protected ExternalDocs externalDocs;
     protected Map<String, Object> vendorExtensions;
+    private String id;
 
     public String getId() {
         return id;
@@ -147,7 +145,7 @@ public class Swagger {
     }
 
     public Swagger vendorExtension(String key, Object extension) {
-        if(this.vendorExtensions == null) {
+        if (this.vendorExtensions == null) {
             this.vendorExtensions = new HashMap<String, Object>();
         }
         this.vendorExtensions.put(key, extension);
@@ -310,6 +308,7 @@ public class Swagger {
      * @deprecated Use {@link #getSecurity()}.
      */
     @JsonIgnore
+    @JSONField(serialize = false)
     @Deprecated
     public List<SecurityRequirement> getSecurityRequirement() {
         return security;
@@ -319,6 +318,7 @@ public class Swagger {
      * @deprecated Use {@link #setSecurity(List)}.
      */
     @JsonIgnore
+    @JSONField(serialize = false)
     @Deprecated
     public void setSecurityRequirement(List<SecurityRequirement> securityRequirements) {
         this.security = securityRequirements;
@@ -328,6 +328,7 @@ public class Swagger {
      * @deprecated Use {@link #addSecurity(SecurityRequirement)}.
      */
     @JsonIgnore
+    @JSONField(serialize = false)
     @Deprecated
     public void addSecurityDefinition(SecurityRequirement securityRequirement) {
         this.addSecurity(securityRequirement);
@@ -547,25 +548,20 @@ public class Swagger {
             return false;
         }
         if (tags == null) {
-            if (other.tags != null) {
-                return false;
-            }
-        } else if (!tags.equals(other.tags)) {
-            return false;
-        }
-        return true;
+            return other.tags == null;
+        } else return tags.equals(other.tags);
     }
 
     public Swagger vendorExtensions(Map<String, Object> vendorExtensions) {
-        if( vendorExtensions == null ){
+        if (vendorExtensions == null) {
             return this;
         }
 
-        if( this.vendorExtensions == null ){
-            this.vendorExtensions = new HashMap<String, Object>();
+        if (this.vendorExtensions == null) {
+            this.vendorExtensions = new HashMap<>();
         }
 
-        this.vendorExtensions.putAll( vendorExtensions );
+        this.vendorExtensions.putAll(vendorExtensions);
         return this;
     }
 }

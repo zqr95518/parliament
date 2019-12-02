@@ -3,9 +3,9 @@
 
 <head>
     <meta charset="utf-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="Api Parliament documentation center">
+    <meta content="IE=edge" http-equiv="X-UA-Compatible">
+    <meta content="width=device-width, initial-scale=1" name="viewport">
+    <meta content="Api Parliament documentation center" name="description">
 
     <title>Parliament Server</title>
 
@@ -23,7 +23,7 @@
     <div class="container">
         <!-- Brand and toggle get grouped for better mobile display -->
         <div class="navbar-header">
-            <a class="navbar-brand" href="#">Parliament</a>
+            <a class="navbar-brand" href="index.html">Parliament</a>
         </div>
         <!-- Collect the nav links, forms, and other content for toggling -->
         <div class="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
@@ -49,10 +49,10 @@
     <div class="row">
         <div id="api-list">
             <ul class="list-group">
-                <li v-for="api in apis" class="list-group-item">
-                    <a v-bind:href="'swagger/index.html?url=/api' + api.basePath" >
-                        Title:
-                        {{ api.basePath }}
+                <li class="list-group-item" v-for="(api,key) in apis">
+                    <a v-bind:href="'swagger/index.html?url=/parliament/api/' + api.id">
+                        {{ api.info.title?api.info.title:"" }}:
+                        {{ api.info.description?api.info.description:"" }}
                     </a>
                 </li>
 

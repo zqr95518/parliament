@@ -1,9 +1,10 @@
 package com.burnetzhong.domain;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
+import com.alibaba.fastjson.annotation.JSONField;
 import com.burnetzhong.domain.refs.GenericRef;
 import com.burnetzhong.domain.refs.RefFormat;
 import com.burnetzhong.domain.refs.RefType;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import java.util.Map;
 
@@ -29,6 +30,7 @@ public class RefModel implements Model {
 
     // not allowed in a $ref
     @JsonIgnore
+    @JSONField(serialize = false)
     @Override
     public String getTitle() {
         return title;
@@ -41,6 +43,7 @@ public class RefModel implements Model {
 
     // not allowed in a $ref
     @JsonIgnore
+    @JSONField(serialize = false)
     public String getDescription() {
         return description;
     }
@@ -50,6 +53,7 @@ public class RefModel implements Model {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public Map<String, Object> getProperties() {
         return properties;
     }
@@ -59,6 +63,7 @@ public class RefModel implements Model {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public String getSimpleRef() {
         return genericRef.getSimpleRef();
     }
@@ -72,11 +77,13 @@ public class RefModel implements Model {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public RefFormat getRefFormat() {
         return this.genericRef.getFormat();
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public Object getExample() {
         return example;
     }
@@ -86,6 +93,7 @@ public class RefModel implements Model {
     }
 
     @JsonIgnore
+    @JSONField(serialize = false)
     public ExternalDocs getExternalDocs() {
         return externalDocs;
     }
@@ -106,6 +114,7 @@ public class RefModel implements Model {
 
     @Override
     @JsonIgnore
+    @JSONField(serialize = false)
     public Map<String, Object> getVendorExtensions() {
         return null;
     }
@@ -177,6 +186,7 @@ public class RefModel implements Model {
 
     @Override
     @JsonIgnore
+    @JSONField(serialize = false)
     public String getReference() {
         return genericRef.getRef();
     }

@@ -7,7 +7,7 @@ import java.util.HashMap;
 import java.util.Map;
 
 public class License {
-    private final Map<String, Object> vendorExtensions = new HashMap<String, Object>();
+    private Map<String, Object> vendorExtensions = new HashMap<String, Object>();
     private String name;
     private String url;
 

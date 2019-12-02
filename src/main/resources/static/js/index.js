@@ -7,14 +7,9 @@ var apiList = new Vue({
         console.log("done");
         $.ajax({
             url: 'api/',
-            datatype: 'json',
             type: "get",
-            contentType: "application/json",
-            success: function (data) {
-                $.each(data, function(i, v){
-                    apiList.apis.push(v);
-
-                });
+            success: function (result) {
+                apiList.apis = JSON.parse(result);
             },
             error: function () {
                 alert("An error during data retrieving. Please, try again later");

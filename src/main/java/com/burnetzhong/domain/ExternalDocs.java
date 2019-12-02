@@ -20,7 +20,7 @@ public class ExternalDocs {
      */
     private String url;
 
-    private final Map<String, Object> vendorExtensions = new HashMap<String, Object>();
+    private Map<String, Object> vendorExtensions = new HashMap<String, Object>();
 
     public ExternalDocs() {
     }
